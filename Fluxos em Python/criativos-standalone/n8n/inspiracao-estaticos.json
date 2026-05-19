@@ -1,0 +1,146 @@
+{
+  "name": "Inspiração – Estáticos",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "trigger-1",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "inspiracao-estaticos"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.webhook_url }}",
+        "method": "GET",
+        "options": {}
+      },
+      "id": "http-request-1",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [220, 0],
+      "notes": "Busca dados do perfil / posts do Apify"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst results = [];\nconst trigger = $('Webhook Trigger').first().json;\nconst first = $('HTTP Request1').first().json;\n\nfunction toInt(v) {\n  if (typeof v === 'number') return v;\n  if (typeof v === 'string') return parseInt(v.replace(/[^0-9-]/g, ''), 10) || 0;\n  return 0;\n}\n\n// Discard unresolved template literals like {{input.client_name}}\nfunction clean(v) {\n  if (!v || typeof v !== 'string') return '';\n  if (v.startsWith('{{') || v.startsWith('$json') || v.startsWith(\"$('\")) return '';\n  return v;\n}\n\nconst clientName = clean(trigger.client_name) || clean(first.client_name) || '';\nconst ownInstagram = clean(trigger.own_instagram) || clean(first.own_instagram) || '';\n\nfor (const item of items) {\n  const loopItem = item.json;\n  if (loopItem.isPinned) continue;\n\n  // Parse analysis: may be string from LLM Chain\n  let analysis = loopItem.analysis || null;\n  if (typeof analysis === 'string') {\n    try { analysis = JSON.parse(analysis); } catch { analysis = null; }\n  }\n\n  results.push({\n    json: {\n      id: loopItem.id,\n      post_url: loopItem.url || loopItem.postUrl,\n      thumbnail_url: loopItem.displayUrl || loopItem.thumbnailUrl || null,\n      caption: loopItem.caption || '',\n      media_type: loopItem.type || 'image',\n      profile_id: trigger.profile_id || first.profile_id,\n      client_name: clientName,\n      own_instagram: ownInstagram,\n      analysis: analysis,\n      curtidas: toInt(loopItem.likesCount),\n      visualizacoes: 0,\n      envios: 0\n    }\n  });\n}\n\nreturn results;"
+      },
+      "id": "code-1",
+      "name": "Code in JavaScript1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0],
+      "notes": "Mapeia campos do Apify para schema interno. visualizacoes = 0 para estáticos (não têm views de vídeo)"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition-descartar",
+              "leftValue": "={{ $json.analysis.descartar }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-descartar",
+      "name": "IF Não Descartar",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [660, 0],
+      "notes": "Filtra posts marcados como descartar=true pela análise IA"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "tableId": "inspiration_posts",
+        "matchColumn": "id",
+        "dataMode": "autoMapInputData",
+        "columns": "post_url,thumbnail_url,caption,media_type,analysis,readapted,curtidas,visualizacoes,profile_id,own_instagram,client_name,envios"
+      },
+      "id": "supabase-save",
+      "name": "Salvar Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [880, -100],
+      "notes": "Salva/atualiza post na tabela inspiration_posts"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SUPABASE_URL }}/functions/v1/readaptados-callback",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ 'Bearer ' + $env.SUPABASE_SERVICE_ROLE_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "string",
+        "body": "={{ JSON.stringify({ perfil_id: $json.profile_id, post_id: $json.post_id, tipo: $json.media_type, tema: $json.analysis ? $json.analysis.tema : null, gancho: $json.analysis ? $json.analysis.gancho : null, copy_readaptado: $json.analysis ? $json.analysis.sugestao_readaptacao : null, score: $json.analysis ? $json.analysis.score_relevancia : null, analysis: $json.analysis, curtidas: $json.curtidas, visualizacoes: $json.visualizacoes, envios: $json.envios, midia_url: $json.post_url, thumbnail_url: $json.thumbnail_url, caption_original: $json.caption, client_name: $json.client_name || null, own_instagram: $json.own_instagram || null, status: 'pendente' }) }}",
+        "options": {}
+      },
+      "id": "http-callback",
+      "name": "HTTP Request Callback",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [880, 100],
+      "notes": "Envia dados para a Edge Function readaptados-callback"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [{ "node": "HTTP Request1", "type": "main", "index": 0 }]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [{ "node": "Code in JavaScript1", "type": "main", "index": 0 }]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [{ "node": "IF Não Descartar", "type": "main", "index": 0 }]
+      ]
+    },
+    "IF Não Descartar": {
+      "main": [
+        [
+          { "node": "Salvar Supabase", "type": "main", "index": 0 },
+          { "node": "HTTP Request Callback", "type": "main", "index": 0 }
+        ],
+        []
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": [
+    { "name": "inspiracao" },
+    { "name": "estaticos" }
+  ]
+}

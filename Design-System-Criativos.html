@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — Criativos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════
+       CSS VARIABLES — DESIGN TOKENS
+       ═══════════════════════════════════════════ */
+    :root {
+      /* Background */
+      --cr-bg: #0a0a0a;
+      --cr-dialog-bg: #141414;
+
+      /* Text */
+      --cr-text-1: #ffffff;
+      --cr-text-2: rgba(255,255,255,0.65);
+      --cr-text-3: rgba(255,255,255,0.35);
+
+      /* Surfaces */
+      --cr-surface: rgba(255,255,255,0.03);
+      --cr-surface-2: rgba(255,255,255,0.02);
+      --cr-surface-hover: rgba(255,255,255,0.05);
+      --cr-surface-active: rgba(232,96,74,0.04);
+
+      /* Borders */
+      --cr-border: rgba(255,255,255,0.08);
+      --cr-border-hover: rgba(255,255,255,0.15);
+
+      /* Accent */
+      --cr-accent: #e8604a;
+      --cr-accent-border: rgba(232,96,74,0.25);
+      --cr-accent-muted: rgba(232,96,74,0.06);
+
+      /* Gradient */
+      --cr-grad: linear-gradient(135deg, #c2396e 0%, #e8604a 100%);
+      --cr-grad-soft: linear-gradient(135deg, rgba(194,57,110,0.12) 0%, rgba(232,96,74,0.12) 100%);
+
+      /* Destructive */
+      --cr-red: #e85454;
+      --cr-red-muted: rgba(239,68,68,0.08);
+
+      /* Score */
+      --cr-score-high: #4ade80;
+      --cr-score-mid: #fbbf24;
+      --cr-score-low: #ef4444;
+      --cr-green-muted: rgba(74,222,128,0.10);
+      --cr-amber-muted: rgba(251,191,36,0.10);
+
+      /* Semantic */
+      --cr-violet: #8b5cf6;
+      --cr-violet-muted: rgba(139,92,246,0.10);
+      --cr-amber: #f59e0b;
+      --cr-cyan: #06b6d4;
+      --cr-cyan-muted: rgba(6,182,212,0.10);
+      --cr-blue: #3b82f6;
+      --cr-blue-muted: rgba(59,130,246,0.10);
+      --cr-green: #22c55e;
+
+      /* Badge — Video */
+      --cr-badge-video-bg: rgba(168,85,247,0.10);
+      --cr-badge-video-color: #a855f7;
+      --cr-badge-video-border: rgba(168,85,247,0.25);
+
+      /* Badge — Carousel */
+      --cr-badge-carousel-bg: rgba(59,130,246,0.10);
+      --cr-badge-carousel-color: #3b82f6;
+      --cr-badge-carousel-border: rgba(59,130,246,0.25);
+
+      /* Badge — Image */
+      --cr-badge-image-bg: rgba(34,197,94,0.10);
+      --cr-badge-image-color: #22c55e;
+      --cr-badge-image-border: rgba(34,197,94,0.25);
+
+      /* Radius */
+      --cr-radius: 12px;
+      --cr-radius-sm: 8px;
+      --cr-radius-lg: 16px;
+
+      /* Font */
+      --cr-font: 'Inter', sans-serif;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET & BASE
+       ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--cr-font);
+      background: var(--cr-bg);
+      color: var(--cr-text-1);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════════
+       LAYOUT
+       ═══════════════════════════════════════════ */
+    .page { max-width: 1200px; margin: 0 auto; padding: 48px 32px 96px; }
+
+    .hero {
+      text-align: center;
+      padding: 80px 0 64px;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(194,57,110,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      background: var(--cr-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .hero p { color: var(--cr-text-2); font-size: 16px; max-width: 520px; margin: 0 auto; }
+
+    .section { margin-bottom: 72px; }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--cr-text-1);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-desc {
+      color: var(--cr-text-3);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    /* ═══════════════════════════════════════════
+       COLOR SWATCHES
+       ═══════════════════════════════════════════ */
+    .color-group-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cr-text-2);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+      margin-top: 32px;
+    }
+    .color-group-title:first-child { margin-top: 0; }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .color-card {
+      border: 1px solid var(--cr-border);
+      border-radius: var(--cr-radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .color-card:hover { border-color: var(--cr-border-hover); }
+    .color-swatch {
+      height: 72px;
+      position: relative;
+    }
+    .color-swatch.checkerboard {
+      background-image:
+        linear-gradient(45deg, #1a1a1a 25%, transparent 25%),
+        linear-gradient(-45deg, #1a1a1a 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #1a1a1a 75%),
+        linear-gradient(-45deg, transparent 75%, #1a1a1a 75%);
+      background-size: 12px 12px;
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+    }
+    .color-swatch .overlay {
+      position: absolute; inset: 0;
+    }
+    .color-info {
+      padding: 12px 14px;
+      background: var(--cr-surface);
+    }
+    .color-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cr-text-1);
+      margin-bottom: 2px;
+    }
+    .color-value {
+      font-size: 11px;
+      font-family: 'Outfit', monospace;
+      color: var(--cr-text-3);
+    }
+    .color-var {
+      font-size: 10px;
+      color: var(--cr-text-3);
+      margin-top: 2px;
+      opacity: 0.7;
+    }
+
+    /* Gradient swatch */
+    .gradient-strip {
+      height: 80px;
+      border-radius: var(--cr-radius);
+      border: 1px solid var(--cr-border);
+      margin-bottom: 12px;
+    }
+    .gradient-row {
+      display: flex; gap: 12px;
+    }
+    .gradient-row > div { flex: 1; }
+    .gradient-label {
+      font-size: 13px; font-weight: 500; color: var(--cr-text-2); margin-top: 8px;
+    }
+    .gradient-code {
+      font-size: 11px; color: var(--cr-text-3); font-family: 'Outfit', monospace;
+    }
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY
+       ═══════════════════════════════════════════ */
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 32px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--cr-border);
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-meta {
+      min-width: 180px;
+      flex-shrink: 0;
+    }
+    .type-meta .label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cr-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .type-meta .specs {
+      font-size: 11px;
+      color: var(--cr-text-3);
+      line-height: 1.5;
+    }
+    .type-sample { flex: 1; }
+
+    /* ═══════════════════════════════════════════
+       SPACING
+       ═══════════════════════════════════════════ */
+    .spacing-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-end;
+    }
+    .spacing-item { text-align: center; }
+    .spacing-box {
+      background: var(--cr-grad-soft);
+      border: 1px solid var(--cr-accent-border);
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .spacing-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cr-text-2);
+    }
+    .spacing-value {
+      font-size: 10px;
+      color: var(--cr-text-3);
+    }
+
+    /* ═══════════════════════════════════════════
+       RADIUS
+       ═══════════════════════════════════════════ */
+    .radius-grid {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .radius-item { text-align: center; }
+    .radius-box {
+      width: 80px; height: 80px;
+      border: 2px solid var(--cr-accent);
+      background: var(--cr-accent-muted);
+      margin-bottom: 8px;
+    }
+
+    /* ═══════════════════════════════════════════
+       BUTTONS
+       ═══════════════════════════════════════════ */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .btn-row-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cr-text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--cr-font);
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-md { height: 40px; padding: 0 20px; border-radius: var(--cr-radius-sm); }
+    .btn-sm { height: 32px; padding: 0 14px; border-radius: var(--cr-radius-sm); font-size: 12px; }
+    .btn-lg { height: 44px; padding: 0 24px; border-radius: var(--cr-radius); }
+
+    .btn-primary {
+      background: var(--cr-grad);
+      color: #fff;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cr-text-2);
+      border: 1px solid var(--cr-border);
+    }
+    .btn-outline:hover { border-color: var(--cr-border-hover); color: var(--cr-text-1); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--cr-text-3);
+    }
+    .btn-ghost:hover { color: var(--cr-text-2); background: var(--cr-surface-hover); }
+
+    .btn-destructive {
+      background: var(--cr-red);
+      color: #fff;
+    }
+    .btn-destructive:hover { opacity: 0.9; }
+
+    .btn-disabled {
+      background: var(--cr-grad);
+      color: #fff;
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-icon {
+      width: 36px; height: 36px;
+      padding: 0;
+      border-radius: var(--cr-radius-sm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       FORM INPUTS
+       ═══════════════════════════════════════════ */
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .input-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cr-text-2);
+    }
+    .input {
+      height: 40px;
+      padding: 0 14px;
+      border-radius: var(--cr-radius);
+      border: 1px solid var(--cr-border);
+      background: var(--cr-surface);
+      color: var(--cr-text-1);
+      font-family: var(--cr-font);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input:focus { border-color: rgba(255,255,255,0.2); box-shadow: 0 0 0 2px rgba(255,255,255,0.05); }
+    .input::placeholder { color: var(--cr-text-3); }
+
+    .textarea {
+      min-height: 100px;
+      padding: 12px 14px;
+      border-radius: var(--cr-radius);
+      border: 1px solid var(--cr-border);
+      background: var(--cr-surface);
+      color: var(--cr-text-1);
+      font-family: var(--cr-font);
+      font-size: 13px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .textarea:focus { border-color: rgba(255,255,255,0.2); box-shadow: 0 0 0 2px rgba(255,255,255,0.05); }
+    .textarea::placeholder { color: var(--cr-text-3); }
+
+    .select-wrapper {
+      position: relative;
+    }
+    .select {
+      height: 40px;
+      padding: 0 36px 0 14px;
+      border-radius: var(--cr-radius);
+      border: 1px solid var(--cr-border);
+      background: var(--cr-surface);
+      color: var(--cr-text-1);
+      font-family: var(--cr-font);
+      font-size: 13px;
+      appearance: none;
+      outline: none;
+      width: 100%;
+      cursor: pointer;
+    }
+    .select:focus { border-color: rgba(255,255,255,0.2); }
+    .select-arrow {
+      position: absolute;
+      right: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--cr-text-3);
+      pointer-events: none;
+      font-size: 11px;
+    }
+
+    /* Toggle */
+    .toggle-row {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .toggle {
+      width: 40px; height: 22px;
+      border-radius: 11px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle.off { background: var(--cr-surface); border: 1px solid var(--cr-border); }
+    .toggle.on { background: var(--cr-accent); border: 1px solid var(--cr-accent); }
+    .toggle-knob {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      position: absolute;
+      top: 2px;
+      transition: left 0.2s;
+    }
+    .toggle.off .toggle-knob { left: 2px; }
+    .toggle.on .toggle-knob { left: 20px; }
+    .toggle-label { font-size: 13px; color: var(--cr-text-2); }
+
+    /* ═══════════════════════════════════════════
+       BADGES
+       ═══════════════════════════════════════════ */
+    .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+    .badge-video {
+      background: var(--cr-badge-video-bg);
+      color: var(--cr-badge-video-color);
+      border-color: var(--cr-badge-video-border);
+    }
+    .badge-carousel {
+      background: var(--cr-badge-carousel-bg);
+      color: var(--cr-badge-carousel-color);
+      border-color: var(--cr-badge-carousel-border);
+    }
+    .badge-image {
+      background: var(--cr-badge-image-bg);
+      color: var(--cr-badge-image-color);
+      border-color: var(--cr-badge-image-border);
+    }
+    .badge-accent {
+      background: var(--cr-accent-muted);
+      color: var(--cr-accent);
+      border-color: var(--cr-accent-border);
+    }
+    .badge-status-pending {
+      background: var(--cr-amber-muted);
+      color: var(--cr-score-mid);
+      border-color: rgba(251,191,36,0.25);
+    }
+    .badge-status-done {
+      background: var(--cr-green-muted);
+      color: var(--cr-score-high);
+      border-color: rgba(74,222,128,0.25);
+    }
+    .badge-status-error {
+      background: var(--cr-red-muted);
+      color: var(--cr-red);
+      border-color: rgba(239,68,68,0.25);
+    }
+
+    /* ═══════════════════════════════════════════
+       CARDS
+       ═══════════════════════════════════════════ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      border: 1px solid var(--cr-border);
+      border-radius: var(--cr-radius);
+      background: var(--cr-surface);
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .card:hover { border-color: var(--cr-border-hover); transform: translateY(-1px); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .card-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--cr-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .card-title { font-size: 14px; font-weight: 600; color: var(--cr-text-1); }
+    .card-subtitle { font-size: 12px; color: var(--cr-text-3); }
+    .card-body { font-size: 13px; color: var(--cr-text-2); line-height: 1.6; }
+
+    /* KPI Card */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .kpi-card {
+      border: 1px solid var(--cr-border);
+      border-radius: var(--cr-radius);
+      background: var(--cr-surface);
+      padding: 20px;
+    }
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cr-text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--cr-text-1);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .kpi-value.gradient {
+      background: var(--cr-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ═══════════════════════════════════════════
+       TABLE
+       ═══════════════════════════════════════════ */
+    .table-wrapper {
+      border: 1px solid var(--cr-border);
+      border-radius: var(--cr-radius);
+      overflow: hidden;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead { background: var(--cr-surface); }
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cr-text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--cr-border);
+    }
+    td {
+      padding: 14px 16px;
+      color: var(--cr-text-2);
+      border-bottom: 1px solid var(--cr-border);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--cr-surface-hover); }
+    td.text-primary { color: var(--cr-text-1); font-weight: 500; }
+
+    /* ═══════════════════════════════════════════
+       SCORE BARS
+       ═══════════════════════════════════════════ */
+    .score-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+    .score-item { display: flex; align-items: center; gap: 10px; }
+    .score-bar-bg {
+      width: 120px; height: 6px;
+      border-radius: 3px;
+      background: var(--cr-surface);
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+    .score-bar-fill.high { background: var(--cr-score-high); }
+    .score-bar-fill.mid { background: var(--cr-score-mid); }
+    .score-bar-fill.low { background: var(--cr-score-low); }
+    .score-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .score-number.high { color: var(--cr-score-high); }
+    .score-number.mid { color: var(--cr-score-mid); }
+    .score-number.low { color: var(--cr-score-low); }
+
+    /* ═══════════════════════════════════════════
+       DIALOG PREVIEW
+       ═══════════════════════════════════════════ */
+    .dialog-preview {
+      background: var(--cr-dialog-bg);
+      border: 1px solid var(--cr-border);
+      border-radius: var(--cr-radius-lg);
+      padding: 28px;
+      max-width: 480px;
+    }
+    .dialog-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--cr-text-1);
+      margin-bottom: 4px;
+    }
+    .dialog-desc {
+      font-size: 13px;
+      color: var(--cr-text-3);
+      margin-bottom: 24px;
+    }
+    .dialog-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    /* ═══════════════════════════════════════════
+       ANALYSIS CARDS
+       ═══════════════════════════════════════════ */
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 768px) {
+      .analysis-grid { grid-template-columns: 1fr; }
+    }
+    .analysis-card {
+      border-radius: var(--cr-radius);
+      padding: 20px;
+      border-left: 3px solid;
+    }
+    .analysis-card.violet {
+      background: var(--cr-violet-muted);
+      border-left-color: var(--cr-violet);
+    }
+    .analysis-card.amber {
+      background: var(--cr-amber-muted);
+      border-left-color: var(--cr-amber);
+    }
+    .analysis-card.cyan {
+      background: var(--cr-cyan-muted);
+      border-left-color: var(--cr-cyan);
+    }
+    .analysis-card .a-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .analysis-card.violet .a-icon { background: rgba(139,92,246,0.15); color: var(--cr-violet); }
+    .analysis-card.amber .a-icon { background: rgba(245,158,11,0.15); color: var(--cr-amber); }
+    .analysis-card.cyan .a-icon { background: rgba(6,182,212,0.15); color: var(--cr-cyan); }
+    .analysis-card .a-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .analysis-card.violet .a-title { color: var(--cr-violet); }
+    .analysis-card.amber .a-title { color: var(--cr-amber); }
+    .analysis-card.cyan .a-title { color: var(--cr-cyan); }
+    .analysis-card .a-body {
+      font-size: 13px;
+      color: var(--cr-text-2);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════
+       EMPTY STATE
+       ═══════════════════════════════════════════ */
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .empty-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--cr-radius);
+      background: var(--cr-surface);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cr-text-3);
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .empty-text { font-size: 13px; color: var(--cr-text-3); }
+
+    /* ═══════════════════════════════════════════
+       AVATAR
+       ═══════════════════════════════════════════ */
+    .avatar-row { display: flex; gap: 16px; align-items: center; }
+    .avatar {
+      border-radius: 50%;
+      background: var(--cr-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .avatar-lg { width: 48px; height: 48px; font-size: 18px; }
+    .avatar-md { width: 36px; height: 36px; font-size: 14px; }
+    .avatar-sm { width: 24px; height: 24px; font-size: 9px; }
+
+    /* ═══════════════════════════════════════════
+       SEARCH BAR
+       ═══════════════════════════════════════════ */
+    .search-bar {
+      position: relative;
+      max-width: 360px;
+    }
+    .search-bar .icon {
+      position: absolute;
+      left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--cr-text-3);
+      font-size: 14px;
+    }
+    .search-bar .input {
+      padding-left: 38px;
+      width: 100%;
+    }
+
+    /* ═══════════════════════════════════════════
+       QUANTITY SELECTOR
+       ═══════════════════════════════════════════ */
+    .qty-selector {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      border: 1px solid var(--cr-border);
+      border-radius: var(--cr-radius-sm);
+      overflow: hidden;
+    }
+    .qty-btn {
+      width: 32px; height: 32px;
+      background: var(--cr-surface);
+      border: none;
+      color: var(--cr-text-2);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .qty-btn:hover { background: var(--cr-surface-hover); color: var(--cr-text-1); }
+    .qty-value {
+      width: 40px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cr-text-1);
+      background: var(--cr-surface);
+    }
+
+    /* ═══════════════════════════════════════════
+       TOKEN TABLE
+       ═══════════════════════════════════════════ */
+    .token-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 16px;
+    }
+    .token-table th {
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--cr-text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--cr-border);
+    }
+    .token-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--cr-border);
+    }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-name { font-weight: 600; color: var(--cr-text-1); }
+    .token-css { font-family: 'Outfit', monospace; color: var(--cr-accent); font-size: 12px; }
+    .token-val { color: var(--cr-text-3); font-size: 12px; }
+
+    /* ═══════════════════════════════════════════
+       FILE UPLOAD
+       ═══════════════════════════════════════════ */
+    .file-upload {
+      border: 2px dashed var(--cr-border);
+      border-radius: var(--cr-radius);
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .file-upload:hover { border-color: var(--cr-border-hover); }
+    .file-upload .icon { font-size: 24px; color: var(--cr-text-3); margin-bottom: 8px; }
+    .file-upload .text { font-size: 13px; color: var(--cr-text-3); }
+    .file-upload .text span { color: var(--cr-accent); font-weight: 600; }
+
+    /* ═══════════════════════════════════════════
+       UTILITIES
+       ═══════════════════════════════════════════ */
+    .flex-center { display: flex; align-items: center; justify-content: center; }
+    .divider { height: 1px; background: var(--cr-border); margin: 48px 0; }
+    .code {
+      font-family: 'Outfit', monospace;
+      font-size: 12px;
+      background: var(--cr-surface);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--cr-accent);
+    }
+    .amber-muted { background: rgba(245,158,11,0.10); }
+
+    @media (max-width: 640px) {
+      .page { padding: 24px 16px 64px; }
+      .hero h1 { font-size: 32px; }
+      .color-grid { grid-template-columns: repeat(2, 1fr); }
+      .type-row { flex-direction: column; gap: 8px; }
+      .type-meta { min-width: auto; }
+      .card-grid { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- ════════════════════════════════════════
+         HERO
+         ════════════════════════════════════════ -->
+    <div class="hero">
+      <h1>Design System</h1>
+      <p>Criativos — Guia visual de componentes, tokens e padroes de interface</p>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         1. CORES
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Cores</h2>
+      <p class="section-desc">Palette completa de cores usada no app. Todas definidas via CSS custom properties com prefixo <span class="code">--cr-</span>.</p>
+
+      <div class="color-group-title">Background & Surface</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background:#0a0a0a;"></div>
+          <div class="color-info">
+            <div class="color-name">Background</div>
+            <div class="color-value">#0a0a0a</div>
+            <div class="color-var">--cr-bg</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#141414;"></div>
+          <div class="color-info">
+            <div class="color-name">Dialog BG</div>
+            <div class="color-value">#141414</div>
+            <div class="color-var">--cr-dialog-bg</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch checkerboard"><div class="overlay" style="background:rgba(255,255,255,0.03);"></div></div>
+          <div class="color-info">
+            <div class="color-name">Surface</div>
+            <div class="color-value">rgba(255,255,255, 0.03)</div>
+            <div class="color-var">--cr-surface</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch checkerboard"><div class="overlay" style="background:rgba(255,255,255,0.05);"></div></div>
+          <div class="color-info">
+            <div class="color-name">Surface Hover</div>
+            <div class="color-value">rgba(255,255,255, 0.05)</div>
+            <div class="color-var">--cr-surface-hover</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch checkerboard"><div class="overlay" style="background:rgba(232,96,74,0.04);"></div></div>
+          <div class="color-info">
+            <div class="color-name">Surface Active</div>
+            <div class="color-value">rgba(232,96,74, 0.04)</div>
+            <div class="color-var">--cr-surface-active</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-group-title">Texto</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background:#ffffff;"></div>
+          <div class="color-info">
+            <div class="color-name">Texto Primario</div>
+            <div class="color-value">#ffffff</div>
+            <div class="color-var">--cr-text-1</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:rgba(255,255,255,0.65);"></div>
+          <div class="color-info">
+            <div class="color-name">Texto Secundario</div>
+            <div class="color-value">rgba(255,255,255, 0.65)</div>
+            <div class="color-var">--cr-text-2</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:rgba(255,255,255,0.35);"></div>
+          <div class="color-info">
+            <div class="color-name">Texto Muted</div>
+            <div class="color-value">rgba(255,255,255, 0.35)</div>
+            <div class="color-var">--cr-text-3</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-group-title">Bordas</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch checkerboard"><div class="overlay" style="background:rgba(255,255,255,0.08);"></div></div>
+          <div class="color-info">
+            <div class="color-name">Border Default</div>
+            <div class="color-value">rgba(255,255,255, 0.08)</div>
+            <div class="color-var">--cr-border</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch checkerboard"><div class="overlay" style="background:rgba(255,255,255,0.15);"></div></div>
+          <div class="color-info">
+            <div class="color-name">Border Hover</div>
+            <div class="color-value">rgba(255,255,255, 0.15)</div>
+            <div class="color-var">--cr-border-hover</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-group-title">Accent & Brand</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background:#e8604a;"></div>
+          <div class="color-info">
+            <div class="color-name">Accent (Coral)</div>
+            <div class="color-value">#e8604a</div>
+            <div class="color-var">--cr-accent</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#c2396e;"></div>
+          <div class="color-info">
+            <div class="color-name">Gradient Start</div>
+            <div class="color-value">#c2396e</div>
+            <div class="color-var">Usado em --cr-grad</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#e85454;"></div>
+          <div class="color-info">
+            <div class="color-name">Destructive (Red)</div>
+            <div class="color-value">#e85454</div>
+            <div class="color-var">--cr-red</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-group-title">Semanticas</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background:#4ade80;"></div>
+          <div class="color-info">
+            <div class="color-name">Score High</div>
+            <div class="color-value">#4ade80</div>
+            <div class="color-var">--cr-score-high</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#fbbf24;"></div>
+          <div class="color-info">
+            <div class="color-name">Score Mid</div>
+            <div class="color-value">#fbbf24</div>
+            <div class="color-var">--cr-score-mid</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#ef4444;"></div>
+          <div class="color-info">
+            <div class="color-name">Score Low</div>
+            <div class="color-value">#ef4444</div>
+            <div class="color-var">--cr-score-low</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#8b5cf6;"></div>
+          <div class="color-info">
+            <div class="color-name">Violet</div>
+            <div class="color-value">#8b5cf6</div>
+            <div class="color-var">--cr-violet</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#06b6d4;"></div>
+          <div class="color-info">
+            <div class="color-name">Cyan</div>
+            <div class="color-value">#06b6d4</div>
+            <div class="color-var">--cr-cyan</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#3b82f6;"></div>
+          <div class="color-info">
+            <div class="color-name">Blue</div>
+            <div class="color-value">#3b82f6</div>
+            <div class="color-var">--cr-blue</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#f59e0b;"></div>
+          <div class="color-info">
+            <div class="color-name">Amber</div>
+            <div class="color-value">#f59e0b</div>
+            <div class="color-var">--cr-amber</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background:#22c55e;"></div>
+          <div class="color-info">
+            <div class="color-name">Green</div>
+            <div class="color-value">#22c55e</div>
+            <div class="color-var">--cr-green</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-group-title">Gradientes</div>
+      <div class="gradient-row">
+        <div>
+          <div class="gradient-strip" style="background: linear-gradient(135deg, #c2396e 0%, #e8604a 100%);"></div>
+          <div class="gradient-label">Primary Gradient</div>
+          <div class="gradient-code">linear-gradient(135deg, #c2396e 0%, #e8604a 100%)</div>
+        </div>
+        <div>
+          <div class="gradient-strip" style="background: linear-gradient(135deg, rgba(194,57,110,0.12) 0%, rgba(232,96,74,0.12) 100%);"></div>
+          <div class="gradient-label">Soft Gradient</div>
+          <div class="gradient-code">linear-gradient(135deg, rgba(194,57,110,0.12), rgba(232,96,74,0.12))</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         2. TIPOGRAFIA
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Tipografia</h2>
+      <p class="section-desc">Tres familias tipograficas com hierarquia clara de tamanhos e pesos.</p>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="label">Heading 1</div>
+          <div class="specs">Poppins Bold<br>48px / -0.03em</div>
+        </div>
+        <div class="type-sample" style="font-family:'Poppins',sans-serif; font-size:48px; font-weight:700; letter-spacing:-0.03em; line-height:1.1;">
+          Criativos
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="label">Heading 2</div>
+          <div class="specs">Poppins SemiBold<br>24px / -0.02em</div>
+        </div>
+        <div class="type-sample" style="font-family:'Poppins',sans-serif; font-size:24px; font-weight:600; letter-spacing:-0.02em;">
+          Titulo de Secao
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="label">Heading 3</div>
+          <div class="specs">Inter Bold<br>20px / -0.01em</div>
+        </div>
+        <div class="type-sample" style="font-size:20px; font-weight:700; letter-spacing:-0.01em;">
+          Subtitulo Destaque
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="label">Body</div>
+          <div class="specs">Inter Regular<br>14px / 1.6</div>
+        </div>
+        <div class="type-sample" style="font-size:14px; color:var(--cr-text-2); line-height:1.6;">
+          Texto corpo padrao para descricoes, paragrafos e conteudo geral da interface. Usa a fonte Inter com peso regular.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="label">UI Text</div>
+          <div class="specs">Inter Medium<br>13px / 1.5</div>
+        </div>
+        <div class="type-sample" style="font-size:13px; font-weight:500; color:var(--cr-text-2);">
+          Texto padrao de interface — botoes, labels, celulas de tabela
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="label">Caption</div>
+          <div class="specs">Inter SemiBold<br>11px / uppercase / 0.08em</div>
+        </div>
+        <div class="type-sample" style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--cr-text-3);">
+          Label / Caption / Meta Info
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="label">KPI Number</div>
+          <div class="specs">Outfit ExtraBold<br>28px / -0.02em / tabular</div>
+        </div>
+        <div class="type-sample" style="font-family:'Outfit',sans-serif; font-size:28px; font-weight:800; letter-spacing:-0.02em; font-variant-numeric:tabular-nums;">
+          1.247
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="label">Small Badge</div>
+          <div class="specs">Inter SemiBold<br>10px</div>
+        </div>
+        <div class="type-sample" style="font-size:10px; font-weight:600; color:var(--cr-text-2);">
+          BADGE TEXT  ·  MICRO LABEL
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         3. ESPACAMENTO & RADIUS
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Espacamento</h2>
+      <p class="section-desc">Escala de espacamento baseada em multiplos de 4px.</p>
+
+      <div class="spacing-grid">
+        <div class="spacing-item">
+          <div class="spacing-box" style="width:8px; height:8px;"></div>
+          <div class="spacing-label">2</div>
+          <div class="spacing-value">8px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-box" style="width:12px; height:12px;"></div>
+          <div class="spacing-label">3</div>
+          <div class="spacing-value">12px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-box" style="width:16px; height:16px;"></div>
+          <div class="spacing-label">4</div>
+          <div class="spacing-value">16px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-box" style="width:20px; height:20px;"></div>
+          <div class="spacing-label">5</div>
+          <div class="spacing-value">20px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-box" style="width:24px; height:24px;"></div>
+          <div class="spacing-label">6</div>
+          <div class="spacing-value">24px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-box" style="width:32px; height:32px;"></div>
+          <div class="spacing-label">8</div>
+          <div class="spacing-value">32px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-box" style="width:48px; height:48px;"></div>
+          <div class="spacing-label">12</div>
+          <div class="spacing-value">48px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-box" style="width:64px; height:64px;"></div>
+          <div class="spacing-label">16</div>
+          <div class="spacing-value">64px</div>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;">
+        <h3 class="section-title" style="font-size:18px;">Border Radius</h3>
+        <div class="radius-grid" style="margin-top:20px;">
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:8px;"></div>
+            <div class="spacing-label">Small</div>
+            <div class="spacing-value">8px</div>
+            <div class="color-var">--cr-radius-sm</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:12px;"></div>
+            <div class="spacing-label">Default</div>
+            <div class="spacing-value">12px</div>
+            <div class="color-var">--cr-radius</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:16px;"></div>
+            <div class="spacing-label">Large</div>
+            <div class="spacing-value">16px</div>
+            <div class="color-var">--cr-radius-lg</div>
+          </div>
+          <div class="radius-item">
+            <div class="radius-box" style="border-radius:50%;"></div>
+            <div class="spacing-label">Full</div>
+            <div class="spacing-value">50%</div>
+            <div class="color-var">rounded-full</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         4. BOTOES
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Botoes</h2>
+      <p class="section-desc">Variantes de botao com tres tamanhos (sm, md, lg) e estados interativos.</p>
+
+      <div class="btn-row-label">Variantes</div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-md">Primary</button>
+        <button class="btn btn-outline btn-md">Outline</button>
+        <button class="btn btn-ghost btn-md">Ghost</button>
+        <button class="btn btn-destructive btn-md">Destructive</button>
+        <button class="btn btn-disabled btn-md">Disabled</button>
+      </div>
+
+      <div class="btn-row-label">Tamanhos</div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-sm">Small</button>
+        <button class="btn btn-primary btn-md">Medium</button>
+        <button class="btn btn-primary btn-lg">Large</button>
+      </div>
+
+      <div class="btn-row-label">Com Icone</div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-md">+ Novo Perfil</button>
+        <button class="btn btn-outline btn-md">&#x1F50D; Buscar</button>
+        <button class="btn btn-outline btn-icon" title="Icon button">+</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         5. INPUTS
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Formularios</h2>
+      <p class="section-desc">Campos de entrada, selects, textareas e controles de formulario.</p>
+
+      <div class="input-grid">
+        <div class="input-group">
+          <label class="input-label">Input Text</label>
+          <input class="input" type="text" placeholder="Digite algo..." />
+        </div>
+        <div class="input-group">
+          <label class="input-label">Input com busca</label>
+          <div class="search-bar" style="max-width:none;">
+            <span class="icon">&#128269;</span>
+            <input class="input" type="text" placeholder="Buscar perfis..." style="padding-left:38px; width:100%;" />
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Select</label>
+          <div class="select-wrapper">
+            <select class="select">
+              <option>Todos os tipos</option>
+              <option>Video / Reel</option>
+              <option>Carrossel</option>
+              <option>Imagem</option>
+            </select>
+            <span class="select-arrow">&#9662;</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;">
+        <div class="input-group" style="max-width:560px;">
+          <label class="input-label">Textarea</label>
+          <textarea class="textarea" placeholder="Cole as URLs aqui, uma por linha..."></textarea>
+        </div>
+      </div>
+
+      <div style="margin-top:24px; display:flex; gap:32px; flex-wrap:wrap; align-items:center;">
+        <div>
+          <div class="input-label" style="margin-bottom:8px;">Toggle Switch</div>
+          <div class="toggle-row">
+            <div class="toggle off"><div class="toggle-knob"></div></div>
+            <span class="toggle-label">Desligado</span>
+          </div>
+          <div class="toggle-row" style="margin-top:8px;">
+            <div class="toggle on"><div class="toggle-knob"></div></div>
+            <span class="toggle-label">Ligado</span>
+          </div>
+        </div>
+        <div>
+          <div class="input-label" style="margin-bottom:8px;">Quantity Selector</div>
+          <div class="qty-selector">
+            <button class="qty-btn">-</button>
+            <span class="qty-value">3</span>
+            <button class="qty-btn">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px; max-width:400px;">
+        <div class="input-label" style="margin-bottom:8px;">File Upload</div>
+        <div class="file-upload">
+          <div class="icon">&#8593;</div>
+          <div class="text">Arraste arquivos ou <span>clique para selecionar</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         6. BADGES
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Badges</h2>
+      <p class="section-desc">Badges de tipo de midia, status e categorias.</p>
+
+      <div class="btn-row-label">Tipo de Midia</div>
+      <div class="badge-row">
+        <span class="badge badge-video">&#9654; Video / Reel</span>
+        <span class="badge badge-carousel">&#9638; Carrossel</span>
+        <span class="badge badge-image">&#9632; Imagem</span>
+      </div>
+
+      <div class="btn-row-label">Status</div>
+      <div class="badge-row">
+        <span class="badge badge-status-pending">Pendente</span>
+        <span class="badge badge-status-done">Concluido</span>
+        <span class="badge badge-status-error">Erro</span>
+      </div>
+
+      <div class="btn-row-label">Accent</div>
+      <div class="badge-row">
+        <span class="badge badge-accent">Destaque</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         7. CARDS
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Cards</h2>
+      <p class="section-desc">Cards de perfil, KPIs e cards de analise.</p>
+
+      <div class="btn-row-label">Profile Card</div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-avatar">EN</div>
+            <div>
+              <div class="card-title">@exemplo_perfil</div>
+              <div class="card-subtitle">Instagram · 12 posts</div>
+            </div>
+          </div>
+          <div class="card-body">Perfil de inspiracao com foco em lifestyle e tendencias de conteudo digital.</div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-avatar">CR</div>
+            <div>
+              <div class="card-title">@criativos_hub</div>
+              <div class="card-subtitle">Instagram · 48 posts</div>
+            </div>
+          </div>
+          <div class="card-body">Hub de criativos com alta taxa de engajamento. Videos e carrosseis.</div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-avatar">MK</div>
+            <div>
+              <div class="card-title">@marketing_pro</div>
+              <div class="card-subtitle">TikTok · 7 posts</div>
+            </div>
+          </div>
+          <div class="card-body">Perfil focado em marketing digital e growth hacking.</div>
+        </div>
+      </div>
+
+      <div class="btn-row-label" style="margin-top:32px;">KPI Cards</div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Posts</div>
+          <div class="kpi-value">1.247</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Videos</div>
+          <div class="kpi-value gradient">384</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Score Medio</div>
+          <div class="kpi-value" style="color:var(--cr-score-high);">8.4</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Perfis Ativos</div>
+          <div class="kpi-value">23</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         8. ANALYSIS CARDS
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Analysis Cards</h2>
+      <p class="section-desc">Cards com borda lateral colorida para analises de posts expandidos.</p>
+
+      <div class="analysis-grid">
+        <div class="analysis-card violet">
+          <div class="a-icon">&#10024;</div>
+          <div class="a-title">Tema</div>
+          <div class="a-body">Conteudo sobre tendencias de marketing digital com foco em reels e stories para engajamento organico.</div>
+        </div>
+        <div class="analysis-card amber">
+          <div class="a-icon">&#9889;</div>
+          <div class="a-title">Gancho</div>
+          <div class="a-body">Pergunta provocativa no inicio que gera curiosidade e incentiva o usuario a assistir ate o final.</div>
+        </div>
+        <div class="analysis-card cyan">
+          <div class="a-icon">&#9733;</div>
+          <div class="a-title">Score</div>
+          <div class="a-body">Nota geral baseada em engajamento, qualidade visual e relevancia do conteudo para o nicho.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         9. SCORE BARS
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Score Bars</h2>
+      <p class="section-desc">Barras de score com codificacao de cor: verde (>=8), amarelo (6-8), vermelho (&lt;6).</p>
+
+      <div class="score-row" style="flex-direction:column; gap:16px; align-items:flex-start;">
+        <div class="score-item">
+          <span class="score-number high" style="min-width:36px;">9.2</span>
+          <div class="score-bar-bg"><div class="score-bar-fill high" style="width:92%;"></div></div>
+          <span style="font-size:12px; color:var(--cr-text-3);">Score High (>= 8)</span>
+        </div>
+        <div class="score-item">
+          <span class="score-number mid" style="min-width:36px;">7.1</span>
+          <div class="score-bar-bg"><div class="score-bar-fill mid" style="width:71%;"></div></div>
+          <span style="font-size:12px; color:var(--cr-text-3);">Score Mid (6 - 8)</span>
+        </div>
+        <div class="score-item">
+          <span class="score-number low" style="min-width:36px;">4.3</span>
+          <div class="score-bar-bg"><div class="score-bar-fill low" style="width:43%;"></div></div>
+          <span style="font-size:12px; color:var(--cr-text-3);">Score Low (&lt; 6)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         10. TABLE
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Table</h2>
+      <p class="section-desc">Tabela com header sticky, linhas hover e badges inline.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Post</th>
+              <th>Tipo</th>
+              <th>Score</th>
+              <th>Perfil</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-primary">Como triplicar seu engajamento em 30 dias</td>
+              <td><span class="badge badge-video" style="font-size:10px; padding:2px 8px;">Video</span></td>
+              <td><span class="score-number high">9.1</span></td>
+              <td>@criativos_hub</td>
+              <td>22 Mar 2026</td>
+            </tr>
+            <tr>
+              <td class="text-primary">5 templates que todo criador precisa</td>
+              <td><span class="badge badge-carousel" style="font-size:10px; padding:2px 8px;">Carrossel</span></td>
+              <td><span class="score-number mid">7.4</span></td>
+              <td>@marketing_pro</td>
+              <td>21 Mar 2026</td>
+            </tr>
+            <tr>
+              <td class="text-primary">Antes e depois: redesign completo</td>
+              <td><span class="badge badge-image" style="font-size:10px; padding:2px 8px;">Imagem</span></td>
+              <td><span class="score-number low">5.2</span></td>
+              <td>@exemplo_perfil</td>
+              <td>20 Mar 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         11. DIALOG
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Dialog</h2>
+      <p class="section-desc">Dialogs modais com fundo escuro (#141414), max-width definido e scroll interno.</p>
+
+      <div class="dialog-preview">
+        <div class="dialog-title">Novo Perfil</div>
+        <div class="dialog-desc">Adicione um perfil de Instagram para monitorar.</div>
+        <div class="input-group" style="margin-bottom:16px;">
+          <label class="input-label">Username</label>
+          <input class="input" type="text" placeholder="@username" style="width:100%; background:var(--cr-bg);" />
+        </div>
+        <div class="input-group">
+          <label class="input-label">Descricao</label>
+          <textarea class="textarea" placeholder="Breve descricao do perfil..." style="min-height:72px; background:var(--cr-bg);"></textarea>
+        </div>
+        <div class="dialog-footer">
+          <button class="btn btn-outline btn-sm">Cancelar</button>
+          <button class="btn btn-primary btn-sm">Adicionar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         12. AVATARS
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Avatars</h2>
+      <p class="section-desc">Avatars circulares com gradiente brand e iniciais em branco.</p>
+
+      <div class="avatar-row">
+        <div class="avatar avatar-lg">EN</div>
+        <div class="avatar avatar-md">CR</div>
+        <div class="avatar avatar-sm">M</div>
+        <div style="font-size:13px; color:var(--cr-text-3);">Large (48px) &nbsp;·&nbsp; Medium (36px) &nbsp;·&nbsp; Small (24px)</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         13. EMPTY STATE
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Empty State</h2>
+      <p class="section-desc">Estado vazio padrao com icone e mensagem centralizada.</p>
+
+      <div style="border:1px solid var(--cr-border); border-radius:var(--cr-radius); padding:16px;">
+        <div class="empty-state">
+          <div class="empty-icon">&#128269;</div>
+          <div class="empty-text">Nenhum post encontrado. Ajuste os filtros ou adicione novos perfis.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════════
+         14. TOKEN REFERENCE
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Token Reference</h2>
+      <p class="section-desc">Tabela completa de todos os CSS custom properties usados no design system.</p>
+
+      <div class="table-wrapper">
+        <table class="token-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>CSS Variable</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="token-name">Background</td><td class="token-css">--cr-bg</td><td class="token-val">#0a0a0a</td></tr>
+            <tr><td class="token-name">Dialog BG</td><td class="token-css">--cr-dialog-bg</td><td class="token-val">#141414</td></tr>
+            <tr><td class="token-name">Text Primary</td><td class="token-css">--cr-text-1</td><td class="token-val">#ffffff</td></tr>
+            <tr><td class="token-name">Text Secondary</td><td class="token-css">--cr-text-2</td><td class="token-val">rgba(255,255,255, 0.65)</td></tr>
+            <tr><td class="token-name">Text Muted</td><td class="token-css">--cr-text-3</td><td class="token-val">rgba(255,255,255, 0.35)</td></tr>
+            <tr><td class="token-name">Surface</td><td class="token-css">--cr-surface</td><td class="token-val">rgba(255,255,255, 0.03)</td></tr>
+            <tr><td class="token-name">Surface 2</td><td class="token-css">--cr-surface-2</td><td class="token-val">rgba(255,255,255, 0.02)</td></tr>
+            <tr><td class="token-name">Surface Hover</td><td class="token-css">--cr-surface-hover</td><td class="token-val">rgba(255,255,255, 0.05)</td></tr>
+            <tr><td class="token-name">Surface Active</td><td class="token-css">--cr-surface-active</td><td class="token-val">rgba(232,96,74, 0.04)</td></tr>
+            <tr><td class="token-name">Border</td><td class="token-css">--cr-border</td><td class="token-val">rgba(255,255,255, 0.08)</td></tr>
+            <tr><td class="token-name">Border Hover</td><td class="token-css">--cr-border-hover</td><td class="token-val">rgba(255,255,255, 0.15)</td></tr>
+            <tr><td class="token-name">Accent</td><td class="token-css">--cr-accent</td><td class="token-val">#e8604a</td></tr>
+            <tr><td class="token-name">Accent Border</td><td class="token-css">--cr-accent-border</td><td class="token-val">rgba(232,96,74, 0.25)</td></tr>
+            <tr><td class="token-name">Accent Muted</td><td class="token-css">--cr-accent-muted</td><td class="token-val">rgba(232,96,74, 0.06)</td></tr>
+            <tr><td class="token-name">Gradient</td><td class="token-css">--cr-grad</td><td class="token-val">linear-gradient(135deg, #c2396e, #e8604a)</td></tr>
+            <tr><td class="token-name">Gradient Soft</td><td class="token-css">--cr-grad-soft</td><td class="token-val">linear-gradient(135deg, rgba(194,57,110,0.12), rgba(232,96,74,0.12))</td></tr>
+            <tr><td class="token-name">Destructive</td><td class="token-css">--cr-red</td><td class="token-val">#e85454</td></tr>
+            <tr><td class="token-name">Score High</td><td class="token-css">--cr-score-high</td><td class="token-val">#4ade80</td></tr>
+            <tr><td class="token-name">Score Mid</td><td class="token-css">--cr-score-mid</td><td class="token-val">#fbbf24</td></tr>
+            <tr><td class="token-name">Score Low</td><td class="token-css">--cr-score-low</td><td class="token-val">#ef4444</td></tr>
+            <tr><td class="token-name">Violet</td><td class="token-css">--cr-violet</td><td class="token-val">#8b5cf6</td></tr>
+            <tr><td class="token-name">Cyan</td><td class="token-css">--cr-cyan</td><td class="token-val">#06b6d4</td></tr>
+            <tr><td class="token-name">Blue</td><td class="token-css">--cr-blue</td><td class="token-val">#3b82f6</td></tr>
+            <tr><td class="token-name">Amber</td><td class="token-css">--cr-amber</td><td class="token-val">#f59e0b</td></tr>
+            <tr><td class="token-name">Green</td><td class="token-css">--cr-green</td><td class="token-val">#22c55e</td></tr>
+            <tr><td class="token-name">Radius SM</td><td class="token-css">--cr-radius-sm</td><td class="token-val">8px</td></tr>
+            <tr><td class="token-name">Radius</td><td class="token-css">--cr-radius</td><td class="token-val">12px</td></tr>
+            <tr><td class="token-name">Radius LG</td><td class="token-css">--cr-radius-lg</td><td class="token-val">16px</td></tr>
+            <tr><td class="token-name">Font</td><td class="token-css">--cr-font</td><td class="token-val">'Inter', sans-serif</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         15. STACK & DEPENDENCIES
+         ════════════════════════════════════════ -->
+    <div class="section">
+      <h2 class="section-title">Stack & Dependencias</h2>
+      <p class="section-desc">Bibliotecas e ferramentas usadas na camada de UI.</p>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+        <div class="kpi-card" style="text-align:center;">
+          <div class="kpi-label">Components</div>
+          <div style="font-size:14px; font-weight:600; color:var(--cr-text-1);">shadcn/ui</div>
+        </div>
+        <div class="kpi-card" style="text-align:center;">
+          <div class="kpi-label">Icons</div>
+          <div style="font-size:14px; font-weight:600; color:var(--cr-text-1);">Lucide React</div>
+        </div>
+        <div class="kpi-card" style="text-align:center;">
+          <div class="kpi-label">Animation</div>
+          <div style="font-size:14px; font-weight:600; color:var(--cr-text-1);">Framer Motion</div>
+        </div>
+        <div class="kpi-card" style="text-align:center;">
+          <div class="kpi-label">Toasts</div>
+          <div style="font-size:14px; font-weight:600; color:var(--cr-text-1);">Sonner</div>
+        </div>
+        <div class="kpi-card" style="text-align:center;">
+          <div class="kpi-label">Markdown</div>
+          <div style="font-size:14px; font-weight:600; color:var(--cr-text-1);">React Markdown</div>
+        </div>
+        <div class="kpi-card" style="text-align:center;">
+          <div class="kpi-label">Styling</div>
+          <div style="font-size:14px; font-weight:600; color:var(--cr-text-1);">Tailwind CSS</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center; padding:48px 0 0; border-top:1px solid var(--cr-border);">
+      <p style="font-size:12px; color:var(--cr-text-3);">Criativos Design System · Gerado em 23 Mar 2026</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
