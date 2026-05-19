@@ -24,7 +24,7 @@ Este repositorio foi organizado para manter o codigo-fonte, configuracoes e docu
 | Repositorio | `marketing-next` |
 | Pasta local original | `IA-AVANT/MARKETING-NEXT` |
 | Visibilidade | Publico |
-| Producao | [https://criativos-api.railway.app](https://criativos-api.railway.app) |
+| Producao | [https://criativos-api.railway.app](https://marketing-i9.vercel.app/) |
 | Stack detectada | Node.js, Python, TypeScript, React, Vite, Supabase, Tailwind CSS, Docker, Vercel |
 
 ## Stack e arquitetura
